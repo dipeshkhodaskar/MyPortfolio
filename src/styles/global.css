@@ -19,3 +19,30 @@
 .backdrop-blur-lg {
   backdrop-filter: blur(16px);
 }
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%) rotate(45deg); }
+  100% { transform: translateX(100%) rotate(45deg); }
+}
+
+.name-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.name-shimmer::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  right: -50%;
+  bottom: -50%;
+  background: linear-gradient(
+    45deg,
+    transparent 25%,
+    rgba(255,255,255,0.1) 50%,
+    transparent 75%
+  );
+  animation: shimmer 3s infinite;
+  mix-blend-mode: overlay;
+}

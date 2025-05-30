@@ -2,11 +2,8 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Particles from 'react-tsparticles';
 import { loadSlim } from '@tsparticles/slim';
-import { useInView } from 'react-intersection-observer';
-
-// Import your components
 import Header from './components/Header';
-import Hero from './components/Hero';
+import Hero from './components/Home';
 import About from './components/About';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
@@ -130,10 +127,10 @@ const App = () => {
       />
       
       <main>
-        <Hero setActiveSection={setActiveSection} />
+        <Hero setActiveSection={setActiveSection} darkMode={darkMode} />
         <About setActiveSection={setActiveSection} />
-        <Skills setActiveSection={setActiveSection} />
         <Projects setActiveSection={setActiveSection} />
+        <Skills setActiveSection={setActiveSection} />
         <Contact setActiveSection={setActiveSection} />
       </main>
 

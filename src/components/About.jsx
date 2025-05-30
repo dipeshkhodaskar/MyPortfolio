@@ -17,7 +17,7 @@ const About = ({ setActiveSection }) => {
     <section 
       id="about" 
       ref={ref}
-      className="py-24 bg-white dark:bg-gray-900 relative overflow-hidden"
+      className="py-24 bg-zinc-100 dark:bg-gray-800 relative overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-6">
         <motion.div
@@ -48,13 +48,13 @@ const About = ({ setActiveSection }) => {
               <div className="absolute -inset-4 rounded-2xl bg-gradient-to-r from-blue-400 to-purple-400 opacity-20 blur-xl" />
               <div className="relative rounded-xl overflow-hidden border-4 border-white dark:border-gray-800 shadow-2xl">
                 <img 
-                  src="/profile.jpg" 
+                  src="src/assets/images/dip2.jpg" 
                   alt="Profile" 
-                  className="w-full h-auto object-cover"
+                  className="w-full h-[510px] object-cover"
                 />
               </div>
               <div className="absolute -bottom-6 -right-6 w-32 h-32 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center text-white font-bold text-lg shadow-lg">
-                <span>5+ Years</span>
+                <span>1+ Years</span>
               </div>
             </div>
           </motion.div>
@@ -70,7 +70,10 @@ const About = ({ setActiveSection }) => {
               Who am I?
             </h3>
             <p className="text-gray-600 dark:text-gray-300 mb-6">
-              I'm a passionate frontend developer with over 5 years of experience creating modern, responsive, and user-friendly web applications. I specialize in React.js, Next.js, and modern JavaScript frameworks.
+              Hello! I'm Dipesh Khodaskar, an aspiring Front-End Developer based in Pune, India. I have a strong foundation in HTML, CSS, JavaScript, React.js, and Next.js, and I'm continually expanding my skill set to include modern web development practices.
+            </p>
+            <p className="text-gray-600 dark:text-gray-300 mb-6">
+             I'm passionate about crafting intuitive user interfaces and am always eager to learn and adapt to new technologies. My goal is to contribute to innovative projects that make a positive impact on users.
             </p>
             <p className="text-gray-600 dark:text-gray-300 mb-6">
               My approach combines technical expertise with an eye for design, ensuring that the applications I build are not only functional but also visually appealing and intuitive to use.
@@ -78,15 +81,15 @@ const About = ({ setActiveSection }) => {
             <div className="grid grid-cols-2 gap-4 mb-8">
               <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
                 <h4 className="font-bold text-gray-800 dark:text-white mb-2">Name:</h4>
-                <p className="text-gray-600 dark:text-gray-400">Alex Johnson</p>
+                <p className="text-gray-600 dark:text-gray-400">Dipesh Khodaskar</p>
               </div>
               <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
                 <h4 className="font-bold text-gray-800 dark:text-white mb-2">Email:</h4>
-                <p className="text-gray-600 dark:text-gray-400">alex@example.com</p>
+                <p className="text-gray-600 dark:text-gray-400">dipeshvkhodaskar12@gmail.com</p>
               </div>
               <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
                 <h4 className="font-bold text-gray-800 dark:text-white mb-2">From:</h4>
-                <p className="text-gray-600 dark:text-gray-400">San Francisco, CA</p>
+                <p className="text-gray-600 dark:text-gray-400">Pune, Maharashtra</p>
               </div>
               <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
                 <h4 className="font-bold text-gray-800 dark:text-white mb-2">Freelance:</h4>

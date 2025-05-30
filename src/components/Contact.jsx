@@ -1,330 +1,273 @@
-import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence, useInView } from 'framer-motion';
-import { FiSun, FiMoon, FiCheckCircle, FiMail, FiLinkedin, FiGithub, FiSend, FiX } from 'react-icons/fi';
-import { FaTelegramPlane } from 'react-icons/fa';
-import '../styles/global.css'
-const Contact = ({ darkMode, toggleDarkMode }) => {
+import { useState, useRef } from 'react';
+import { 
+  FaPaperPlane, 
+  FaMapMarkerAlt, 
+  FaPhone, 
+  FaLinkedin,
+  FaGithub,
+  FaTwitter,
+  FaInstagram,
+  FaWhatsapp,
+  FaFacebook,
+  FaEnvelope
+
+} from 'react-icons/fa';
+import { motion } from 'framer-motion';
+import emailjs from '@emailjs/browser'; // For actual email sending
+
+const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    message: '',
-    newsletter: false,
-    file: null
+    subject: '',
+    message: ''
   });
-  const [submitted, setSubmitted] = useState(false);
+
+  
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [progress, setProgress] = useState(100);
-  const [shake, setShake] = useState(false);
-  const [typingText, setTypingText] = useState('');
-  const [viewportSize, setViewportSize] = useState({ width: 0, height: 0 });
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
+  const [submitStatus, setSubmitStatus] = useState(null);
+  const formRef = useRef();
 
-  const fullText = "Let's Collaborate";
-  const socialLinks = [
-    { icon: <FiGithub />, url: 'https://github.com', color: 'bg-gray-700' },
-    { icon: <FiLinkedin />, url: 'https://linkedin.com', color: 'bg-blue-600' },
-    { icon: <FaTelegramPlane />, url: 'https://telegram.org', color: 'bg-blue-400' },
-    { icon: <FiMail />, url: 'mailto:contact@example.com', color: 'bg-red-500' }
-  ];
-
-  useEffect(() => {
-    // Typing animation effect
-    let currentIndex = 0;
-    const typeText = () => {
-      if (currentIndex < fullText.length) {
-        setTypingText(fullText.slice(0, currentIndex + 1));
-        currentIndex++;
-        setTimeout(typeText, 100);
-      }
-    };
-    if (isInView) typeText();
-  }, [isInView]);
-
-  useEffect(() => {
-    // Viewport size tracking for floating elements
-    const updateViewport = () => {
-      setViewportSize({ width: window.innerWidth, height: window.innerHeight });
-    };
-    window.addEventListener('resize', updateViewport);
-    updateViewport();
-    return () => window.removeEventListener('resize', updateViewport);
-  }, []);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!validateForm()) return;
-
     setIsSubmitting(true);
-    await new Promise(resolve => setTimeout(resolve, 1500));
     
-    setSubmitted(true);
-    setIsSubmitting(false);
-    setFormData({ name: '', email: '', message: '', newsletter: false, file: null });
-    
-    const interval = setInterval(() => setProgress(p => Math.max(0, p - 1)), 30);
-    setTimeout(() => {
-      clearInterval(interval);
-      setSubmitted(false);
-      setProgress(100);
-    }, 3000);
-  };
-
-  const validateForm = () => {
-    const isValid = formData.name && isValidEmail(formData.email) && formData.message;
-    if (!isValid) triggerValidationError();
-    return isValid;
-  };
-
-  const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-
-  const triggerValidationError = () => {
-    setShake(true);
-    setTimeout(() => setShake(false), 500);
-  };
-
-  const handleFileUpload = (e) => {
-    const file = e.target.files[0];
-    if (file?.size > 5 * 1024 * 1024) {
-      alert('File size must be less than 5MB');
-      return;
+    try {
+      // Using EmailJS for actual email sending (you need to set this up)
+      await emailjs.sendForm(
+        'YOUR_SERVICE_ID',
+        'YOUR_TEMPLATE_ID',
+        formRef.current,
+        'YOUR_PUBLIC_KEY'
+      );
+      
+      setSubmitStatus('success');
+      setFormData({ name: '', email: '', subject: '', message: '' });
+    } catch (error) {
+      console.error('Error:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
     }
-    setFormData({ ...formData, file });
   };
 
-  const FloatingBackgroundElement = ({ x, y }) => (
-    <motion.div
-      className={`absolute w-8 h-8 rounded-full blur-xl opacity-20 ${
-        darkMode ? 'bg-blue-400' : 'bg-blue-200'
-      }`}
-      initial={{ x, y, scale: 0 }}
-      animate={{ 
-        scale: [0, 1, 0.5],
-        rotate: [0, 180],
-        opacity: [0, 0.3, 0]
-      }}
-      transition={{ 
-        duration: Math.random() * 4 + 8,
-        repeat: Infinity,
-        repeatType: 'loop'
-      }}
-    />
-  );
+  const socialLinks = [
+    { icon: <FaLinkedin size={20} />, name: 'LinkedIn', url: 'https://linkedin.com/in/yourprofile' },
+    { icon: <FaGithub size={20} />, name: 'GitHub', url: 'https://github.com/yourusername' },
+    { icon: <FaTwitter size={20} />, name: 'Twitter', url: 'https://twitter.com/yourhandle' },
+    { icon: <FaInstagram size={20} />, name: 'Instagram', url: 'https://instagram.com/yourprofile' },
+    { icon: <FaLinkedin size={20} />, name: 'Linkedin', url: 'https://linkedin.com/in/yourprofile' },
+    { icon: <FaWhatsapp size={20} />, name: 'Whatsapp', url: 'https://wa.me/yourphonenumber' },
+    { icon: <FaFacebook size={20} />, name: 'Facebook', url: 'https://youtube.com/yourchannel' },
+    { icon: <FaEnvelope size={20} />, name: 'Email', url: 'https://discord.gg/yourinvite' },
+  ];
 
   return (
-    <section id="contact" ref={ref} className={`relative py-16 px-4 transition-colors duration-300 ${
-      darkMode ? 'bg-gray-900' : 'bg-gray-50'
-    }`}>
-      {/* Floating background elements */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        {Array.from({ length: 15 }).map((_, i) => (
-          <FloatingBackgroundElement
-            key={i}
-            x={Math.random() * viewportSize.width}
-            y={Math.random() * viewportSize.height}
-          />
-        ))}
-      </div>
+    <section id="contact" className="py-16 px-4 md:px-8 lg:px-16 bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-900">
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-16">
+            <motion.h2 className="text-3xl md:text-5xl text-center font-bold mb-4 text-gray-800 dark:text-white">
+          Contact <span className="text-blue-600 dark:text-blue-400">Me</span>
+        </motion.h2>
+        <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto mb-6" />
 
-      <div className="max-w-6xl mx-auto relative">
-        <div className="flex justify-between items-center mb-12 px-4">
-          <h2 className={`text-4xl font-bold ${darkMode ? 'text-white' : 'text-gray-800'}`}>
-            {typingText}<span className="blinking-cursor">|</span>
+
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800 dark:text-white">
+            Let's <span className="text-indigo-600 dark:text-indigo-400">Connect</span>
           </h2>
-          <button
-            onClick={toggleDarkMode}
-            className={`p-3 rounded-full transition-all duration-300 ${
-              darkMode ? 'text-white hover:bg-gray-700' : 'text-gray-800 hover:bg-gray-200'
-            }`}
-          >
-            {darkMode ? <FiSun size={26} /> : <FiMoon size={26} />}
-          </button>
+          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            Have a project in mind or want to discuss opportunities? Feel free to reach out!
+          </p>
         </div>
-
-        <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
-          {/* Social Links Card */}
-          <motion.div 
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className={`p-8 rounded-2xl shadow-lg backdrop-blur-lg ${
-              darkMode ? 'bg-gray-800/80' : 'bg-white/80'
-            }`}
-          >
-            <h3 className={`text-xl font-semibold mb-6 ${darkMode ? 'text-white' : 'text-gray-800'}`}>
-              Connect Through
+        
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          {/* Contact Form */}
+          <div className="bg-white dark:bg-gray-700 p-8 rounded-xl shadow-xl hover:shadow-2xl transition-shadow duration-300">
+            <h3 className="text-2xl font-semibold mb-6 text-gray-800 dark:text-white flex items-center">
+              <FaPaperPlane className="mr-2 text-indigo-600 dark:text-indigo-400" />
+              Send Me a Message
             </h3>
-            <div className="grid grid-cols-2 gap-4">
-              {socialLinks.map((link, index) => (
-                <motion.a
-                  key={index}
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.05 }}
-                  className={`group relative p-4 rounded-lg overflow-hidden transition-all duration-300 ${
-                    darkMode ? 'hover:bg-gray-700/50' : 'hover:bg-gray-100'
-                  }`}
-                >
-                  <div className={`absolute inset-0 ${link.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300`} />
-                  <div className="flex items-center space-x-3 relative">
-                    <span className={`text-2xl ${darkMode ? 'text-blue-400' : 'text-blue-600'}`}>
-                      {link.icon}
-                    </span>
-                    <span className={`${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                      {link.url.split('/').pop()}
-                    </span>
-                  </div>
-                </motion.a>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Enhanced Contact Form */}
-          <motion.form 
-            onSubmit={handleSubmit}
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className={`p-8 rounded-2xl shadow-lg backdrop-blur-lg ${
-              darkMode ? 'bg-gray-800/80' : 'bg-white/80'
-            }`}
-          >
-            <div className="space-y-6">
-              {/* File Upload */}
-              <div className="relative group">
-                <label className={`flex flex-col items-center justify-center border-2 border-dashed rounded-lg p-6 cursor-pointer transition-colors duration-300 ${
-                  darkMode 
-                    ? 'border-gray-600 hover:border-blue-500 bg-gray-700/50' 
-                    : 'border-gray-300 hover:border-blue-500 bg-gray-50'
-                }`}>
+            
+            {submitStatus === 'success' && (
+              <div className="mb-6 p-4 bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-100 rounded-lg">
+                Thank you! Your message has been sent successfully. I'll get back to you soon.
+              </div>
+            )}
+            
+            {submitStatus === 'error' && (
+              <div className="mb-6 p-4 bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-100 rounded-lg">
+                Oops! Something went wrong. Please try again or email me directly.
+              </div>
+            )}
+            
+            <form ref={formRef} onSubmit={handleSubmit}>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div>
+                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Your Name *
+                  </label>
                   <input
-                    type="file"
-                    onChange={handleFileUpload}
-                    className="hidden"
-                    accept=".pdf,.doc,.docx"
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-600 dark:text-white"
+                    placeholder="Dipesh Khodaskar"
                   />
-                  <div className={`text-center ${
-                    darkMode ? 'text-gray-400' : 'text-gray-600'
-                  }`}>
-                    <FiSend className="w-8 h-8 mx-auto mb-2" />
-                    <p className="text-sm">
-                      {formData.file 
-                        ? formData.file.name 
-                        : 'Drag & drop or click to upload file (max 5MB)'}
-                    </p>
-                    {formData.file && (
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setFormData({ ...formData, file: null });
-                        }}
-                        className="mt-2 text-red-500 hover:text-red-600 flex items-center justify-center"
-                      >
-                        <FiX className="mr-1" /> Remove File
-                      </button>
-                    )}
-                  </div>
+                </div>
+                
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Your Email *
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-600 dark:text-white"
+                    placeholder="abc@example.com"
+                  />
+                </div>
+              </div>
+              
+              <div className="mb-4">
+                <label htmlFor="subject" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Subject
                 </label>
-              </div>
-
-              {/* Real-time Validation Inputs */}
-              <div className="space-y-6">
-                {['name', 'email', 'message'].map((field, index) => (
-                  <div key={field} className="relative">
-                    {field !== 'message' ? (
-                      <input
-                        type={field === 'email' ? 'email' : 'text'}
-                        value={formData[field]}
-                        onChange={(e) => setFormData({ ...formData, [field]: e.target.value })}
-                        className={`w-full p-3 rounded-lg transition-all duration-300 peer ${
-                          darkMode
-                            ? 'bg-gray-700 border-gray-600 text-white focus:border-blue-500'
-                            : 'bg-gray-50 border-gray-300 text-gray-800 focus:border-blue-500'
-                        } ${field === 'email' && !isValidEmail(formData.email) && formData.email 
-                          ? 'border-red-500' : ''}`}
-                      />
-                    ) : (
-                      <textarea
-                        value={formData.message}
-                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        rows="4"
-                        className={`w-full p-3 rounded-lg transition-all duration-300 peer ${
-                          darkMode
-                            ? 'bg-gray-700 border-gray-600 text-white focus:border-blue-500'
-                            : 'bg-gray-50 border-gray-300 text-gray-800 focus:border-blue-500'
-                        }`}
-                      />
-                    )}
-                    <label className={`absolute left-3 transition-all duration-300 peer-focus:-top-3 peer-focus:text-sm ${
-                      formData[field] ? '-top-3 text-sm' : 'top-3'
-                    } ${darkMode 
-                      ? 'text-gray-400 peer-focus:text-blue-400' 
-                      : 'text-gray-500 peer-focus:text-blue-600'
-                    }`}>
-                      {field.charAt(0).toUpperCase() + field.slice(1)}
-                    </label>
-                    {field === 'email' && formData.email && !isValidEmail(formData.email) && (
-                      <span className="absolute right-3 top-3 text-red-500 text-sm">
-                        Invalid email
-                      </span>
-                    )}
-                  </div>
-                ))}
-              </div>
-
-              {/* Enhanced Submit Button */}
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                type="submit"
-                disabled={isSubmitting}
-                className={`w-full py-3 px-6 rounded-lg font-medium flex items-center justify-center space-x-2 transition-all duration-300 ${
-                  darkMode
-                    ? 'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white'
-                    : 'bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white'
-                } ${shake && 'animate-shake'}`}
-              >
-                {isSubmitting ? (
-                  <div className="flex items-center space-x-2">
-                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                    <span>Sending...</span>
-                  </div>
-                ) : (
-                  <>
-                    <FiSend className="text-lg" />
-                    <span>Send Message</span>
-                  </>
-                )}
-              </motion.button>
-            </div>
-          </motion.form>
-        </div>
-
-        {/* Advanced Success Toast */}
-        <AnimatePresence>
-          {submitted && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className={`fixed bottom-8 right-8 p-4 rounded-lg shadow-lg backdrop-blur-lg flex flex-col space-y-2 ${
-                darkMode ? 'bg-gray-800/80 text-green-400' : 'bg-white/80 text-green-600'
-              }`}
-            >
-              <div className="flex items-center space-x-2">
-                <FiCheckCircle size={24} />
-                <span>Message delivered successfully!</span>
-              </div>
-              <div className="h-1 bg-gray-200/50 rounded-full overflow-hidden">
-                <motion.div
-                  initial={{ width: '100%' }}
-                  animate={{ width: '0%' }}
-                  transition={{ duration: 3 }}
-                  className={`h-full ${darkMode ? 'bg-green-400' : 'bg-green-600'}`}
+                <input
+                  type="text"
+                  id="subject"
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-600 dark:text-white"
+                  placeholder="Project Inquiry"
                 />
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+              
+              <div className="mb-6">
+                <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Your Message *
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="5"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-600 dark:text-white"
+                  placeholder="Hi there, I'd like to talk about..."
+                ></textarea>
+              </div>
+              
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className={`flex items-center justify-center w-full py-3 px-6 rounded-lg text-white font-medium transition-all ${
+                  isSubmitting 
+                    ? 'bg-indigo-400 cursor-not-allowed' 
+                    : 'bg-indigo-600 hover:bg-indigo-700 hover:shadow-md'
+                }`}
+              >
+                {isSubmitting ? (
+                  <>
+                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    <FaPaperPlane className="mr-2" />
+                    Send Message
+                  </>
+                )}
+              </button>
+            </form>
+          </div>
+          
+          {/* Contact Info */}
+          <div>
+            <div className="bg-white dark:bg-gray-700 p-8 rounded-xl shadow-xl h-full">
+              <h3 className="text-2xl font-semibold mb-6 text-gray-800 dark:text-white">
+                Contact Information
+              </h3>
+              
+              <div className="space-y-6 mb-8">
+                <div className="flex items-start">
+                  <div className="flex-shrink-0 p-3 bg-indigo-100 dark:bg-indigo-900 rounded-lg text-indigo-600 dark:text-indigo-300">
+                    <FaMapMarkerAlt size={18} />
+                  </div>
+                  <div className="ml-4">
+                    <h4 className="text-lg font-medium text-gray-800 dark:text-white">Location</h4>
+                    <p className="text-gray-600 dark:text-gray-300">Pune</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Open to remote work and relocation</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start">
+                  <div className="flex-shrink-0 p-3 bg-indigo-100 dark:bg-indigo-900 rounded-lg text-indigo-600 dark:text-indigo-300">
+                    <FaEnvelope size={18} />
+                  </div>
+                  <div className="ml-4">
+                    <h4 className="text-lg font-medium text-gray-800 dark:text-white">Email</h4>
+                    <a href="mailto:your.email@example.com" className="text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                      dipeshvkhodaskar12@gmail.com
+                    </a>
+                  </div>
+                </div>
+                
+                <div className="flex items-start">
+                  <div className="flex-shrink-0 p-3 bg-indigo-100 dark:bg-indigo-900 rounded-lg text-indigo-600 dark:text-indigo-300">
+                    <FaPhone size={18} />
+                  </div>
+                  <div className="ml-4">
+                    <h4 className="text-lg font-medium text-gray-800 dark:text-white">Phone</h4>
+                    <a href="tel:+11234567890" className="text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                      +91 9607355528
+                    </a>
+                  </div>
+                </div>
+              </div>
+              
+              <div>
+                <h4 className="text-xl font-medium mb-4 text-gray-800 dark:text-white">Find Me On</h4>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                  {socialLinks.map((social, index) => (
+                    <a
+                      key={index}
+                      href={social.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex flex-col items-center p-3 bg-gray-100 dark:bg-gray-600 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-500 transition-colors group"
+                      aria-label={social.name}
+                    >
+                      <span className="text-gray-700 dark:text-gray-300 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                        {social.icon}
+                      </span>
+                      <span className="text-xs mt-1 text-gray-600 dark:text-gray-300">{social.name}</span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

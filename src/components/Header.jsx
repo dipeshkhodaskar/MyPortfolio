@@ -15,7 +15,7 @@ const Header = ({ darkMode, toggleDarkMode, activeSection }) => {
 
   return (
     <motion.header 
-      className="fixed w-full z-40 backdrop-blur-md bg-white/80 dark:bg-gray-900/80 shadow-sm"
+      className="fixed w-full z-40 backdrop-blur-md bg-stone-400 dark:bg-gray-800/80 shadow-sm"
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ type: 'spring', stiffness: 100 }}
@@ -80,42 +80,64 @@ const Header = ({ darkMode, toggleDarkMode, activeSection }) => {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <motion.div 
-          className="md:hidden fixed inset-0 bg-white dark:bg-gray-900 z-30 pt-24 px-6"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-        >
-          <ul className="flex flex-col gap-6">
-            {navItems.map((item) => (
-              <li key={item.id}>
-                <motion.a
-                  href={`#${item.id}`}
-                  className={`block text-2xl ${activeSection === item.id ? 'text-blue-600 dark:text-blue-400 font-medium' : 'text-gray-700 dark:text-gray-300'}`}
-                  onClick={() => setMobileMenuOpen(false)}
-                  whileHover={{ x: 10 }}
-                >
-                  {item.label}
-                </motion.a>
-              </li>
-            ))}
-          </ul>
+  <motion.div 
+    className="md:hidden fixed inset-0 bg-white dark:bg-gray-900 z-30 pt-24 px-6"
+    initial={{ opacity: 0, y: -20 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, y: -20 }}
+  >
+    {/* Close button */}
+    <button 
+      className="absolute top-6 right-6 p-2"
+      onClick={() => setMobileMenuOpen(false)}
+    >
+      <FaTimes className="text-xl text-gray-700 dark:text-gray-300" />
+    </button>
 
-          <div className="mt-8 flex justify-center">
-            <motion.button
-              onClick={toggleDarkMode}
-              className="p-3 rounded-full bg-gray-200 dark:bg-gray-700"
-              whileTap={{ scale: 0.9 }}
-            >
-              {darkMode ? (
-                <FaSun className="text-yellow-400 text-xl" />
-              ) : (
-                <FaMoon className="text-gray-700 text-xl" />
-              )}
-            </motion.button>
-          </div>
-        </motion.div>
-      )}
+    <ul className="flex flex-col bg-zinc-300 dark:bg-zinc-800 gap-6 p-4 rounded-lg">
+      {navItems.map((item) => (
+        <li key={item.id}>
+          <motion.a
+            href={`#${item.id}`}
+            className={`block text-2xl ${
+              activeSection === item.id 
+                ? 'text-blue-600 dark:text-blue-400 font-medium' 
+                : 'text-gray-700 dark:text-gray-300'
+            }`}
+            onClick={(e) => {
+              e.preventDefault();
+              setMobileMenuOpen(false);
+              // Optional: scroll to section after a small delay
+              setTimeout(() => {
+                const element = document.getElementById(item.id);
+                if (element) {
+                  element.scrollIntoView({ behavior: 'smooth' });
+                }
+              }, 100);
+            }}
+            whileHover={{ x: 10 }}
+          >
+            {item.label}
+          </motion.a>
+        </li>
+      ))}
+    </ul>
+
+    <div className="mt-8 flex justify-center">
+      <motion.button
+        onClick={toggleDarkMode}
+        className="p-3 rounded-full bg-gray-400 dark:bg-gray-700"
+        whileTap={{ scale: 0.9 }}
+      >
+        {darkMode ? (
+          <FaSun className="text-yellow-400 text-xl" />
+        ) : (
+          <FaMoon className="text-gray-700 text-xl" />
+        )}
+      </motion.button>
+    </div>
+  </motion.div>
+)}
     </motion.header>
   );
 };

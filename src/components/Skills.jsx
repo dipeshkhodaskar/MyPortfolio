@@ -3,12 +3,17 @@ import { useInView } from 'react-intersection-observer';
 import { useEffect, useState } from 'react';
 import { FaCode, FaPalette, FaServer, FaTools } from 'react-icons/fa';
 
-export default function Skills({ darkMode }) {
+const Skills = ({ darkMode,setActiveSection }) => {
   const [ref, inView] = useInView({
     threshold: 0.2,
     triggerOnce: true
   });
 
+  useEffect(() => {
+    if (inView) {
+      setActiveSection('skills');
+    }
+  }, [inView, setActiveSection]);
   const [activeCategory, setActiveCategory] = useState('all');
 
   const skillCategories = [
@@ -31,8 +36,6 @@ export default function Skills({ darkMode }) {
       icon: <FaPalette className="mr-2" />,
       skills: [
         { name: "Figma", level: 70 },
-        { name: "Adobe XD", level: 65 },
-        { name: "UI/UX", level: 80 },
         { name: "Photoshop", level: 60 }
       ]
     },
@@ -44,6 +47,7 @@ export default function Skills({ darkMode }) {
         { name: "Node.js", level: 75 },
         { name: "Express", level: 70 },
         { name: "MongoDB", level: 65 },
+        { name: "MySql", level: 80 },
         { name: "Firebase", level: 60 }
       ]
     },
@@ -54,8 +58,8 @@ export default function Skills({ darkMode }) {
       skills: [
         { name: "Git", level: 80 },
         { name: "VS Code", level: 90 },
-        { name: "Docker", level: 50 },
-        { name: "Postman", level: 70 }
+        { name: "Github", level: 90 },
+        { name: "IntelliJ IDEA", level: 70 }
       ]
     }
   ];
@@ -69,7 +73,7 @@ export default function Skills({ darkMode }) {
     <section 
       id="skills" 
       ref={ref}
-      className={`py-20 ${darkMode ? 'bg-gray-900' : 'bg-gray-50'} transition-colors duration-300`}
+      className={`py-20  dark:bg-gray-900 transition-colors duration-300`}
     >
       <div className="max-w-6xl mx-auto px-4">
         <motion.div
@@ -78,11 +82,11 @@ export default function Skills({ darkMode }) {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className={`text-3xl md:text-4xl font-bold mb-4 ${darkMode ? 'text-white' : 'text-gray-800'}`}>
+          <h2 className={`text-3xl md:text-4xl dark:text-white font-bold mb-4 ` }>
             My <span className="text-cyan-600">Skills</span>
           </h2>
           <div className="w-20 h-1 bg-cyan-600 mx-auto mb-6"></div>
-          <p className={`text-lg max-w-2xl mx-auto ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+          <p className={`text-lg max-w-2xl mx-auto dark:text-gray-400 text-gray-600}`}>
             Technologies and tools I work with to create amazing digital experiences
           </p>
         </motion.div>
@@ -129,13 +133,13 @@ export default function Skills({ darkMode }) {
               initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
               animate={inView ? { opacity: 1, x: 0 } : {}}
               transition={{ delay: 0.2 + (index * 0.1), duration: 0.5 }}
-              className={`p-6 rounded-xl ${darkMode ? 'bg-gray-800' : 'bg-white shadow-md'}`}
+              className={`p-6 rounded-xl dark:bg-gray-800 bg-white shadow-md`}
             >
               <div className="flex justify-between items-center mb-3">
-                <h3 className={`font-medium ${darkMode ? 'text-white' : 'text-gray-800'}`}>
+                <h3 className={`font-medium dark:text-white text-gray-800`}>
                   {skill.name}
                 </h3>
-                <span className={`${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                <span className={`dark:text-gray-400 text-gray-600`}>
                   {skill.level}%
                 </span>
               </div>
@@ -153,23 +157,23 @@ export default function Skills({ darkMode }) {
 
         {/* Additional Info */}
         <motion.div
-          className={`mt-16 p-6 rounded-xl ${darkMode ? 'bg-gray-800' : 'bg-white shadow-md'}`}
+          className={`mt-16 p-6 rounded-xl dark:bg-gray-800 bg-white shadow-md`}
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ delay: 0.8, duration: 0.6 }}
         >
-          <h3 className={`text-xl font-bold mb-4 ${darkMode ? 'text-white' : 'text-gray-800'}`}>
+          <h3 className={`text-xl font-bold mb-4 dark:text-white text-gray-800`}>
             Continuous Learning
           </h3>
-          <p className={`mb-4 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+          <p className={`mb-4 dark:text-gray-400 text-gray-600 `}>
             I'm constantly expanding my skill set through online courses, personal projects, 
             and staying updated with the latest industry trends.
           </p>
           <div className="flex flex-wrap gap-2">
-            <span className={`px-3 py-1 rounded-full text-sm ${darkMode ? 'bg-gray-700 text-gray-300' : 'bg-gray-200 text-gray-700'}`}>
+            <span className={`px-3 py-1 rounded-full text-sm dark:bg-gray-700 dark:text-gray-300 bg-gray-200 text-gray-700 `}>
               Currently Learning: Next.js
             </span>
-            <span className={`px-3 py-1 rounded-full text-sm ${darkMode ? 'bg-gray-700 text-gray-300' : 'bg-gray-200 text-gray-700'}`}>
+            <span className={`px-3 py-1 rounded-full text-sm dark:bg-gray-700 dark:text-gray-300 bg-gray-200 text-gray-700 `}>
               Interested in: Three.js
             </span>
           </div>
@@ -178,3 +182,4 @@ export default function Skills({ darkMode }) {
     </section>
   );
 }
+export default Skills
