@@ -29,7 +29,7 @@ const Projects = ({ darkMode, setActiveSection }) => {
     },
     {
       id: 2,
-      title: "Task Management App",
+      title: "Portfolio Website",
       description: "A productivity app for organizing tasks with drag-and-drop functionality.",
       tags: ["React", "Firebase", "Tailwind CSS"],
       image: "src/assets/images/Project-2.jpg",
