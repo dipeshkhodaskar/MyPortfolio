@@ -4,8 +4,8 @@ import { motion } from 'framer-motion';
 
 const Projects = ({ darkMode, setActiveSection }) => {
   const [ref, inView] = useInView({
-    threshold: 0.3,
-    triggerOnce: true,
+    threshold: 0.2,
+    triggerOnce: false,
   });
 
   const [expandedProjectId, setExpandedProjectId] = useState(null);
@@ -15,58 +15,58 @@ const Projects = ({ darkMode, setActiveSection }) => {
       setActiveSection('projects');
     }
   }, [inView, setActiveSection]);
-
+  const [activeCategory, setActiveCategory] = useState('all');
 
   const projects = [
     {
       id: 1,
       title: "Digi-Buy(E-commerce Website)",
       description: "A full-featured online store with cart functionality and payment integration.",
-      tags: ["React", "Node.js", "MongoDB"],
-      image: "src/assets/images/Project-1.jpg",
-      github: "#",
-      live: "#"
+      tags: ["React", "Node.js", "Firebase"],
+      image: "src/assets/images/Digi1.png",
+      github: "https://github.com/dipeshkhodaskar/Digi-Buy-E-Com-Platform- ",
+      live: "https://digi-buy-e-com-platform-hil7.vercel.app/"
     },
     {
       id: 2,
       title: "Portfolio Website",
-      description: "A productivity app for organizing tasks with drag-and-drop functionality.",
-      tags: ["React", "Firebase", "Tailwind CSS"],
-      image: "src/assets/images/Project-2.jpg",
-      github: "#",
-      live: "#"
+      description: "A responsive personal portfolio built with React.js.",
+      tags: ["React", "Mongodb", "Tailwind CSS"],
+      image: "src/assets/images/Portfolio1.png",
+      github: "https://github.com/dipeshkhodaskar/MyPortfolio",
+      live: "https://my-portfolio-sand-delta-71.vercel.app/"
     },
     {
       id: 3,
-      title: "Weather Dashboard",
-      description: "Real-time weather information with 5-day forecast for any location.",
-      tags: ["JavaScript", "API", "CSS"],
-      image: "src/assets/images/Project-3.jpg",
-      github: "#",
-      live: "#"
+      title: "Brain Memory Game",
+      description: "A fun and challenging React-based memory card game where players match pairs under time pressure.",
+      tags: ["JavaScript", "React.js", "CSS"],
+      image: "src/assets/images/Memory-game1.png",
+      github: "https://github.com/dipeshkhodaskar/Brain-Memory-Game",
+      live: "https://brain-memory-game-swart.vercel.app/ "
     },
-      {
+    {
       id: 4,
       title: "Placement-Cell",
-      description: "Real-time weather information with 5-day forecast for any location.",
-      tags: ["JavaScript", "API", "CSS"],
-      image: "src/assets/images/Project-4.jpg",
-      github: "#",
-      live: "#"
+      description: "The objective of our project is to connect our college students to all the alumni who are working in different part of world. ",
+      tags: ["HTML", "CSS", "JavaScript", "Bootstrap"],
+      image: "src/assets/images/Placementcell1.png",
+      github: "https://github.com/dipeshkhodaskar/Placement-Cell ",
+      live: "https://placement-cell-coral.vercel.app/ "
     },
-      {
+    {
       id: 5,
-      title: "Anagram",
-      description: "Real-time weather information with 5-day forecast for any location.",
+      title: "CRUD Operation",
+      description: "A React application demonstrating Create, Read, Update, and Delete (CRUD) functionality with a clean UI. ",
       tags: ["JavaScript", "API", "CSS"],
-      image: "src/assets/images/Project-5.png",
-      github: "#",
-      live: "#"
+      image: "src/assets/images/Project-1.jpg",
+      github: "https://github.com/dipeshkhodaskar/Crud-Operation",
+      live: "https://crud-operation-eta-seven.vercel.app/ "
     },
-     {
+    {
       id: 6,
       title: "Application of 3D printer",
-      description: "Real-time weather information with 5-day forecast for any location.",
+      description: "Its a application design for the additive manufacturing of 3d printer based on IOT.",
       tags: ["JavaScript", "API", "CSS"],
       image: "src/assets/images/Project-6.jpg",
       github: "#",
@@ -168,10 +168,27 @@ const Projects = ({ darkMode, setActiveSection }) => {
                     animate={{ opacity: 1, height: 'auto' }}
                     className={`mt-4 dark:text-gray-400 text-gray-600}`}
                   >
+
                     <p>
-                      Additional details about the project can be placed here. This section can include
-                      challenges faced, solutions implemented, and technologies used in more depth.
+                      A responsive personal portfolio built with React.js, featuring dynamic animations (Framer Motion/GSAP)
+                      to showcase projects, skills, and a contact form with email integration.
+                      Designed to highlight my work in a clean, interactive format.
                     </p>
+                    <p>A fun and challenging React-based memory card game where players match pairs under time pressure.
+                      Features dynamic scoring, responsive design, and animated card flips for an engaging user experience.
+                      (Tech: React.js, CSS3, useState/useEffect hooks)
+                      </p>
+                    <p>
+                      The objective of our project is to connect our college students to all the alumni who are working in different part of world. 
+                      It will be easier to find out them via our website. It will create a platform for many of us to get in touch to them. 
+                      It’s like Mini-LinkedIn. But only focused on our college.
+                    </p>
+                    <p>
+                      A React application demonstrating Create, Read, Update, and Delete (CRUD) functionality with a clean UI. Built using React hooks, state management, and mock API integration for seamless data handling.
+
+(Tech: React.js, CSS, REST API/JSON Server)
+                    </p>
+
                   </motion.div>
                 )}
               </div>

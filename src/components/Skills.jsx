@@ -6,7 +6,7 @@ import { FaCode, FaPalette, FaServer, FaTools } from 'react-icons/fa';
 const Skills = ({ darkMode,setActiveSection }) => {
   const [ref, inView] = useInView({
     threshold: 0.2,
-    triggerOnce: true
+    triggerOnce: false
   });
 
   useEffect(() => {
@@ -77,11 +77,12 @@ const Skills = ({ darkMode,setActiveSection }) => {
     >
       <div className="max-w-6xl mx-auto px-4">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12"
-        >
+  initial={{ opacity: 0, y: 20 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true, amount: 0.2 }}
+  transition={{ duration: 0.6 }}
+  className="text-center mb-12"
+>
           <h2 className={`text-3xl md:text-4xl dark:text-white font-bold mb-4 ` }>
             My <span className="text-cyan-600">Skills</span>
           </h2>
@@ -96,6 +97,7 @@ const Skills = ({ darkMode,setActiveSection }) => {
           className="flex flex-wrap justify-center gap-2 mb-12"
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
+          viewport={{ once: true, amount: 0.2 }}
           transition={{ delay: 0.2, duration: 0.6 }}
         >
           <button

@@ -1,4 +1,5 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import { useInView } from 'react-intersection-observer';
 import { 
   FaPaperPlane, 
   FaMapMarkerAlt, 
@@ -15,18 +16,30 @@ import {
 import { motion } from 'framer-motion';
 import emailjs from '@emailjs/browser'; // For actual email sending
 
-const Contact = () => {
+const Contact = ({ setActiveSection }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     subject: '',
-    message: ''
+    message: '',
   });
 
-  
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
   const formRef = useRef();
+
+  // useInView hook to detect when the section is in view
+  const { ref: contactRef, inView } = useInView({
+    threshold: 0.2,
+    triggerOnce: false,
+  });
+
+  useEffect(() => {
+    if (inView) {
+      setActiveSection('contact');
+    }
+  }, [inView, setActiveSection]);
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -60,18 +73,20 @@ const Contact = () => {
   };
 
   const socialLinks = [
-    { icon: <FaLinkedin size={20} />, name: 'LinkedIn', url: 'https://linkedin.com/in/yourprofile' },
-    { icon: <FaGithub size={20} />, name: 'GitHub', url: 'https://github.com/yourusername' },
-    { icon: <FaTwitter size={20} />, name: 'Twitter', url: 'https://twitter.com/yourhandle' },
-    { icon: <FaInstagram size={20} />, name: 'Instagram', url: 'https://instagram.com/yourprofile' },
-    { icon: <FaLinkedin size={20} />, name: 'Linkedin', url: 'https://linkedin.com/in/yourprofile' },
-    { icon: <FaWhatsapp size={20} />, name: 'Whatsapp', url: 'https://wa.me/yourphonenumber' },
-    { icon: <FaFacebook size={20} />, name: 'Facebook', url: 'https://youtube.com/yourchannel' },
-    { icon: <FaEnvelope size={20} />, name: 'Email', url: 'https://discord.gg/yourinvite' },
+    { icon: <FaLinkedin size={20} />, name: 'LinkedIn', url: 'https://www.linkedin.com/in/dipesh-khodaskar-a52b9b223/' },
+    { icon: <FaGithub size={20} />, name: 'GitHub', url: 'https://github.com/dipeshkhodaskar?tab=repositories' },
+    { icon: <FaTwitter size={20} />, name: 'Twitter', url: 'https://x.com/DipeshKhodaskar' },
+    { icon: <FaInstagram size={20} />, name: 'Instagram', url: 'https://instagram.com/dipeshkhodaskar12' },
+    { icon: <FaLinkedin size={20} />, name: 'Linkedin', url: 'https://www.linkedin.com/in/dipesh-khodaskar-a52b9b223/' },
+    { icon: <FaWhatsapp size={20} />, name: 'Whatsapp', url: 'https://wa.me/+919607355528' },
+    { icon: <FaFacebook size={20} />, name: 'Facebook', url: 'https://facebook.com' },
+    { icon: <FaEnvelope size={20} />, name: 'Email', url: 'mailto:dipeshvkhodaskar12@gmail.com' },
   ];
 
+
+
   return (
-    <section id="contact" className="py-16 px-4 md:px-8 lg:px-16 bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-900">
+    <section id="contact" ref={contactRef} className="py-16 px-4 md:px-8 lg:px-16 bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-900">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
             <motion.h2 className="text-3xl md:text-5xl text-center font-bold mb-4 text-gray-800 dark:text-white">

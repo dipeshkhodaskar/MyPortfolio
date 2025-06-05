@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 const texts = [
   { content: "Creative Front-end Developer", color: "text-blue-400 dark:text-blue-300" },
   { content: "Full-Stack Developer", color: "text-purple-400 dark:text-purple-300" },
-  { content: "MERN-Stack Developer  ", color: "text-pink-400 dark:text-pink-300" }
+  { content: "Web Developer  ", color: "text-pink-400 dark:text-pink-300" }
 ];
 const Hero = ({ setActiveSection }) => {
   const [ref, inView] = useInView({
@@ -121,7 +121,7 @@ const Hero = ({ setActiveSection }) => {
 
             {/* Resume Download Button */}
             <motion.a
-              href="src/assets/images/Dipesh Resume f.pdf"
+              href="src/assets/images/Dipesh-KhodaskarR.pdf"
               download
               className="px-8 py-3 bg-green-600 text-white rounded-full font-medium shadow-lg hover:bg-green-700 transition-all"
               whileHover={{ scale: 1.05 }}
@@ -139,7 +139,7 @@ const Hero = ({ setActiveSection }) => {
             transition={{ delay: 1.2, duration: 0.8 }}
           >
             <motion.a
-              href="https://linkedin.com/in/alex-dev"
+              href="https://www.linkedin.com/in/dipesh-khodaskar-a52b9b223/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-blue-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
@@ -152,7 +152,7 @@ const Hero = ({ setActiveSection }) => {
             </motion.a>
 
             <motion.a
-              href="https://github.com/alex-dev"
+              href="https://github.com/dipeshkhodaskar?tab=repositories"
               target="_blank"
               rel="noopener noreferrer"
               className="text-purple-600 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 transition-colors"
@@ -165,7 +165,7 @@ const Hero = ({ setActiveSection }) => {
             </motion.a>
 
             <motion.a
-              href="https://twitter.com/alex_dev"
+              href="https://x.com/DipeshKhodaskar"
               target="_blank"
               rel="noopener noreferrer"
               className="text-pink-600 dark:text-gray-400 hover:text-pink-600 dark:hover:text-pink-400 transition-colors "

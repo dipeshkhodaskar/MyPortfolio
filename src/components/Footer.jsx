@@ -10,12 +10,12 @@ const Footer = ({ darkMode, toggleDarkMode }) => {
   };
 
   const socialLinks = [
-    { icon: <FiGithub />, url: 'https://github.com/yourusername' },
-    { icon: <FiLinkedin />, url: 'https://linkedin.com/in/yourusername' },
-    { icon: <FiTwitter />, url: 'https://twitter.com/yourusername' },
-    { icon: <FiFacebook />, url: 'https://facebook.com/yourusername' },
-    { icon: <FiInstagram />, url: 'https://instagram.com/yourusername' },
-    { icon: <FiMail />, url: 'mailto:contact@example.com' },
+    { icon: <FiGithub />, url: 'https://github.com/dipeshkhodaskar?tab=repositories' },
+    { icon: <FiLinkedin />, url: 'https://www.linkedin.com/in/dipesh-khodaskar-a52b9b223/' },
+    { icon: <FiTwitter />, url: 'https://x.com/DipeshKhodaskar' },
+    { icon: <FiFacebook />, url: 'https://facebook.com/dipeshkhodaskar' },
+    { icon: <FiInstagram />, url: 'https://instagram.com/dipeshkhodaskar12' },
+    { icon: <FiMail />, url: 'mailto:dipeshvkhodaskar12@gmail.com' },
   ];
 
   const quickLinks = [

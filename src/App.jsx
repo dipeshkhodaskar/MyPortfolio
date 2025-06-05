@@ -16,8 +16,8 @@ const App = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [activeSection, setActiveSection] = useState('home');
-  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
-  const cursorRef = useRef(null);
+  // const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
+  // const cursorRef = useRef(null);
 
   // Fixed particles initialization
   const particlesInit = useCallback(async (engine) => {
@@ -25,13 +25,13 @@ const App = () => {
   }, []);
 
   // Cursor effect
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      setCursorPosition({ x: e.clientX, y: e.clientY });
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
+  // useEffect(() => {
+  //   const handleMouseMove = (e) => {
+  //     setCursorPosition({ x: e.clientX, y: e.clientY });
+  //   };
+  //   window.addEventListener('mousemove', handleMouseMove);
+  //   return () => window.removeEventListener('mousemove', handleMouseMove);
+  // }, []);
 
   // Loading simulation
   useEffect(() => {
@@ -109,7 +109,7 @@ const App = () => {
       </div>
 
       {/* Custom cursor */}
-      <motion.div
+      {/* <motion.div
         ref={cursorRef}
         className="fixed w-6 h-6 rounded-full pointer-events-none z-50 mix-blend-difference bg-white"
         animate={{
@@ -117,7 +117,7 @@ const App = () => {
           y: cursorPosition.y - 12,
         }}
         transition={{ type: "spring", mass: 0.1 }}
-      />
+      /> */}
 
       {/* Page content */}
       <Header 
