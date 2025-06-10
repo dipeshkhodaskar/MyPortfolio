@@ -23,7 +23,7 @@ const Projects = ({ darkMode, setActiveSection }) => {
       title: "Digi-Buy(E-commerce Website)",
       description: "A full-featured online store with cart functionality and payment integration.",
       tags: ["React", "Node.js", "Firebase"],
-      image: "src/assets/images/Digi1.png",
+      image: "/images/Digi1.png",
       github: "https://github.com/dipeshkhodaskar/Digi-Buy-E-Com-Platform- ",
       live: "https://digi-buy-e-com-platform-hil7.vercel.app/"
     },
@@ -32,7 +32,7 @@ const Projects = ({ darkMode, setActiveSection }) => {
       title: "Portfolio Website",
       description: "A responsive personal portfolio built with React.js.",
       tags: ["React", "Mongodb", "Tailwind CSS"],
-      image: "src/assets/images/Portfolio1.png",
+      image: "/images/Portfolio1.png",
       github: "https://github.com/dipeshkhodaskar/MyPortfolio",
       live: "https://my-portfolio-sand-delta-71.vercel.app/"
     },
@@ -41,7 +41,7 @@ const Projects = ({ darkMode, setActiveSection }) => {
       title: "Brain Memory Game",
       description: "A fun and challenging React-based memory card game where players match pairs under time pressure.",
       tags: ["JavaScript", "React.js", "CSS"],
-      image: "src/assets/images/Memory-game1.png",
+      image: "/images/Memory-game1.png",
       github: "https://github.com/dipeshkhodaskar/Brain-Memory-Game",
       live: "https://brain-memory-game-swart.vercel.app/ "
     },
@@ -50,7 +50,7 @@ const Projects = ({ darkMode, setActiveSection }) => {
       title: "Placement-Cell",
       description: "The objective of our project is to connect our college students to all the alumni who are working in different part of world. ",
       tags: ["HTML", "CSS", "JavaScript", "Bootstrap"],
-      image: "src/assets/images/Placementcell1.png",
+      image: "/images/Placementcell1.png",
       github: "https://github.com/dipeshkhodaskar/Placement-Cell ",
       live: "https://placement-cell-coral.vercel.app/ "
     },
@@ -59,7 +59,7 @@ const Projects = ({ darkMode, setActiveSection }) => {
       title: "CRUD Operation",
       description: "A React application demonstrating Create, Read, Update, and Delete (CRUD) functionality with a clean UI. ",
       tags: ["JavaScript", "API", "CSS"],
-      image: "src/assets/images/Project-1.jpg",
+      image: "/images/Project-1.jpg",
       github: "https://github.com/dipeshkhodaskar/Crud-Operation",
       live: "https://crud-operation-eta-seven.vercel.app/ "
     },
@@ -68,7 +68,7 @@ const Projects = ({ darkMode, setActiveSection }) => {
       title: "Application of 3D printer",
       description: "Its a application design for the additive manufacturing of 3d printer based on IOT.",
       tags: ["JavaScript", "API", "CSS"],
-      image: "src/assets/images/Project-6.jpg",
+      image: "/images/Project-6.jpg",
       github: "#",
       live: "#"
     }

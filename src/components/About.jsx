@@ -48,7 +48,7 @@ const About = ({ setActiveSection }) => {
               <div className="absolute -inset-4 rounded-2xl bg-gradient-to-r from-blue-400 to-purple-400 opacity-20 blur-xl" />
               <div className="relative rounded-xl overflow-hidden border-4 border-white dark:border-gray-800 shadow-2xl">
                 <img 
-                  src="src/assets/images/dip.jpg" 
+                  src="/images/dip.jpg" 
                   alt="Profile" 
                   className="w-full h-[510px] object-cover"
                 />

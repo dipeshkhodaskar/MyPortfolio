@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Particles from 'react-tsparticles';
-import { loadSlim } from '@tsparticles/slim';
+import { loadSlim } from 'tsparticles-slim';
 import Header from './components/Header';
 import Hero from './components/Home';
 import About from './components/About';
@@ -20,9 +20,9 @@ const App = () => {
   // const cursorRef = useRef(null);
 
   // Fixed particles initialization
-  const particlesInit = useCallback(async (engine) => {
-    await loadSlim(engine);
-  }, []);
+ const particlesInit = useCallback(async (engine) => {
+  await loadSlim(engine);
+}, []);
 
   // Cursor effect
   // useEffect(() => {

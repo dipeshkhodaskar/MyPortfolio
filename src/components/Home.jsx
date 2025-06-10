@@ -121,7 +121,7 @@ const Hero = ({ setActiveSection }) => {
 
             {/* Resume Download Button */}
             <motion.a
-              href="src/assets/images/Dipesh-KhodaskarR.pdf"
+              href="\images\Dipesh-KhodaskarR.pdf"
               download
               className="px-8 py-3 bg-green-600 text-white rounded-full font-medium shadow-lg hover:bg-green-700 transition-all"
               whileHover={{ scale: 1.05 }}
