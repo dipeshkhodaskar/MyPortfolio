@@ -71,6 +71,15 @@ const Projects = ({ darkMode, setActiveSection }) => {
       image: "/images/Project-6.jpg",
       github: "#",
       live: "#"
+    },
+    {
+      id: 7,
+      title: "QR-code Genrator",
+      description: "A user-friendly web app that converts text or URLs into customizable, downloadable QR Codes in real-time.",
+      tags: ["JavaScript", "Html", "CSS"],
+      image: "/images/QR-code genrator.png",
+      github: "https://github.com/dipeshkhodaskar/QR-code-Generator",
+      live: "http://qr-code-generator-lyart-eight.vercel.app"
     }
   ];
 
